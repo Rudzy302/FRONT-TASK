@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Box, Heading, Text, Button, Flex, VStack, HStack, Spacer, Image, Grid } from '@chakra-ui/react';
 
 // Importa la imagen con la ruta correcta
-import taskLogo3D from '../src/TASK.jpg'; // Asegúrate de que esta ruta sea correcta
+import taskLogo3D from '../assets/TASK.jpg'; // Asegúrate de que esta ruta sea correcta
 
 export type Route = {};
 
