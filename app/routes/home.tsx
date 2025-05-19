@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Box, Heading, Text, Button, Flex, VStack, HStack, Spacer, Image, Grid } from '@chakra-ui/react';
+import { Box, Heading, Text, Button, Flex, VStack, Spacer, Image, Grid } from '@chakra-ui/react';
 
 // Importa la imagen con la ruta correcta
-import taskLogo3D from '../assets/TASK.jpg'; // Asegúrate de que esta ruta sea correcta
+import taskLogo3D from './src/assets/TASK.jpg'; // Asegúrate de que la ruta sea correcta
 
 export type Route = {};
 
@@ -24,6 +24,8 @@ export default function Home() {
         <Spacer />
         <Flex align="center" gap={6}>
           <Button
+            as={Link}
+            to="/login" // Navega a /login
             variant="ghost"
             color="black"
             fontSize="2xl"
@@ -34,6 +36,8 @@ export default function Home() {
             Iniciar Sesión
           </Button>
           <Button
+            as={Link}
+            to="/register"  // Navega a /register
             bg="blue.600"
             color="white"
             variant="solid"
@@ -50,7 +54,7 @@ export default function Home() {
 
       <Flex
         as="main"
-        py={8} // Reducido el padding vertical
+        py={8}
         px={4}
         align="center"
         bg="#E5E4FF"
@@ -67,19 +71,17 @@ export default function Home() {
           <Text fontSize="xl" color="gray.700" mb={6}>
             TaskMaster te ayuda a organizar proyectos, establecer prioridades y cumplir tus objetivos.
           </Text>
-          {/* Botón "Comenzar" eliminado de esta sección */}
         </Box>
         <Box
-          borderRadius="15px" // Radio de borde a 15px
+          borderRadius="15px"
           overflow="hidden"
           boxShadow="md"
-          maxWidth="2xl" // Imagen mucho más grande
+          maxWidth="2xl"
         >
           <Image src={taskLogo3D} alt="Logo TASK 3D" width="100%" />
         </Box>
       </Flex>
 
-      {/* Sección de Características Principales con Grid */}
       <Box as="section" textAlign="center" mt={0} px={0} maxWidth="container.lg" mx="auto">
         <Heading as="h2" size="xl" fontWeight="semibold" color="gray.800" mb={0}>
           Características Principales
@@ -87,7 +89,7 @@ export default function Home() {
         <Text fontSize="lg" color="gray.600" mb={8}>
           Simplifica tu día a día con nuestras herramientas
         </Text>
-        <Grid templateColumns={{ base: '1fr', md: 'repeat(3, 1fr)' }} gap={100}> {/* Grid con 3 columnas */}
+        <Grid templateColumns={{ base: '1fr', md: 'repeat(3, 1fr)' }} gap={100}>
           <Box
             border="2px solid #ccc"
             borderRadius="8px"
@@ -119,7 +121,8 @@ export default function Home() {
               Proyectos Personalizados
             </Heading>
             <Text fontSize="md" color="gray.600">
-              Agrupa tus tareas en proyectos.<br />
+              Agrupa tus tareas en proyectos.
+              {"\n"}
               Visualiza el progreso y mantén todo organizado.
             </Text>
           </Box>
@@ -137,24 +140,23 @@ export default function Home() {
               Seguimiento de Progreso
             </Heading>
             <Text fontSize="md" color="gray.600">
-              Visualiza tu productividad con gráficos y estadísticas.<br />
+              Visualiza tu productividad con gráficos y estadísticas.{'\n'}
               Identifica áreas de mejora.
             </Text>
           </Box>
         </Grid>
       </Box>
 
-      {/* Sección ¿Cómo Funciona? */}
-      <Box bg="#E9E9E9" py={8} borderRadius="md"> {/* Contenedor con fondo gris */}
-        <VStack as="section" textAlign="center" mt={0} gap={16} maxWidth="container.md" mx="auto" px={4}> {/* Ajuste de mt a 0 */}
+      <Box bg="#E9E9E9" py={8} borderRadius="md">
+        <VStack as="section" textAlign="center" mt={0} gap={16} maxWidth="container.md" mx="auto" px={4}>
           <Heading as="h2" size="2xl" color="blue.600">¿Cómo Funciona?</Heading>
-          <Flex justifyContent="space-around" alignItems="center" w="full"> {/* space-around para distribución uniforme */}
-            <Box w="80px" display="flex" flexDirection="column" alignItems="center"> {/* Contenedor para el círculo y el texto */}
+          <Flex justifyContent="space-around" alignItems="center" w="full">
+            <Box w="80px" display="flex" flexDirection="column" alignItems="center">
               <Box
-                w="80px" // Ancho fijo para el círculo
-                h="80px" // Alto fijo para el círculo
+                w="80px"
+                h="80px"
                 borderRadius="full"
-                bg="#E9E9E9" // Fondo gris para el círculo 1
+                bg="#E9E9E9"
                 color="blue.700"
                 display="flex"
                 alignItems="center"
@@ -170,13 +172,13 @@ export default function Home() {
                 Regístrate
               </Text>
             </Box>
-            <Box w="50px" h="2px" bg="black" display={{ base: 'none', md: 'block' }} /> {/* Línea conector 1 */}
-            <Box w="120px" display="flex" flexDirection="column" alignItems="center"> {/* Contenedor para el círculo y el texto */}
+            <Box w="50px" h="2px" bg="black" display={{ base: 'none', md: 'block' }} />
+            <Box w="120px" display="flex" flexDirection="column" alignItems="center">
               <Box
-                w="80px" // Ancho fijo para el círculo
-                h="80px" // Alto fijo para el círculo
+                w="80px"
+                h="80px"
                 borderRadius="full"
-                bg="#E9E9E9" // Fondo gris para el círculo 2
+                bg="#E9E9E9"
                 color="blue.700"
                 display="flex"
                 alignItems="center"
@@ -192,14 +194,14 @@ export default function Home() {
                 Crea Proyectos y Tareas
               </Text>
             </Box>
-            <Box w="50px" h="2px" bg="black" display={{ base: 'none', md: 'block' }} /> {/* Línea conector 2 */}
-            <Box w="120px" display="flex" flexDirection="column" alignItems="center"> {/* Contenedor para el círculo y el texto */}
+            <Box w="50px" h="2px" bg="black" display={{ base: 'none', md: 'block' }} />
+            <Box w="120px" display="flex" flexDirection="column" alignItems="center">
               <Box
-                w="80px" // Ancho fijo para el círculo
-                h="80px" // Alto fijo para el círculo
+                w="80px"
+                h="80px"
                 borderRadius="full"
                 borderColor={'black'}
-                bg="#E9E9E9" // Fondo gris para el círculo 3
+                bg="#E9E9E9"
                 color="blue.700"
                 display="flex"
                 alignItems="center"
@@ -219,29 +221,23 @@ export default function Home() {
         </VStack>
       </Box>
 
-      {/* Footer */}
       <Box as="footer" bg="#001728" color="white" py={1} px={1}>
         <Flex direction="column" maxWidth="container.xl" mx="auto">
-          {/* Fila 1 */}
           <Flex justifyContent="space-between" mb={4}>
-            {/* Columna 1 (TaskMaster) */}
             <Box textAlign="center" flex="1">
-              <Heading as="h3" size="xl" fontWeight="bold"> {/* Cambiamos size a xl y fontWeight a bold */}
+              <Heading as="h3" size="xl" fontWeight="bold">
                 TaskMaster
               </Heading>
             </Box>
 
-            {/* Columna 2 (Enlaces Rápidos) */}
             <Box textAlign="center" flex="1">
-              <Heading as="h4" size="lg" fontWeight="bold"> {/* Cambiamos size a lg y fontWeight a bold */}
+              <Heading as="h4" size="lg" fontWeight="bold">
                 Enlaces Rápidos
               </Heading>
             </Box>
           </Flex>
 
-          {/* Fila 2 */}
           <Flex justifyContent="space-between">
-            {/* Columna 1 (iz) */}
             <Box textAlign="center" flex="1">
               <Text fontSize="sm" whiteSpace="pre-line">
                 La solución definitiva para la gestión de tareas,{'\n'}
@@ -249,9 +245,7 @@ export default function Home() {
               </Text>
             </Box>
 
-            {/* Columna 2 (der) */}
             <Flex direction="row" justifyContent="space-around" flex="1">
-              {/* der Columna 1 */}
               <Box textAlign="center">
                 <VStack align="center" gap={2}>
                   <Link to="/inicio" color="white">
@@ -263,7 +257,6 @@ export default function Home() {
                 </VStack>
               </Box>
 
-              {/* der Columna 2 */}
               <Box textAlign="center">
                 <VStack align="center" gap={2}>
                   <Link to="/caracteristicas" color="white">
@@ -281,3 +274,4 @@ export default function Home() {
     </Box>
   );
 }
+
