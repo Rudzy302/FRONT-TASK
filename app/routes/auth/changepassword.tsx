@@ -19,14 +19,11 @@ export default function ChangePassword() {
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     console.log({ newPassword, verificationCode });
-    // Aquí iría la lógica para restablecer la contraseña real
   };
 
   return (
-    // Contenedor principal de la página (header + contenido)
     <Box display="flex" flexDirection="column" w="full" minH="100vh" bg="gray.50">
 
-      {/* Header que ocupa todo el ancho superior de la página */}
       <Flex as="header" w="full" px={8} py={4} align="center" bg="white" boxShadow="sm">
         <Heading as="h1" size="4xl" color="blue.600">
           Task
@@ -34,9 +31,7 @@ export default function ChangePassword() {
         <Spacer />
       </Flex>
 
-      {/* HStack que centrará el formulario en el espacio restante */}
       <HStack justify="center" align="center" flexGrow={1} w="full">
-        {/* Cuadro centrado donde irá el formulario */}
         <Box
           p={8}
           maxW={{ base: "xs", sm: "sm", md: "md" }}
@@ -46,9 +41,8 @@ export default function ChangePassword() {
           boxShadow="lg"
           bg="white"
           textAlign="center"
-          color="black" // Aseguramos que todo el texto dentro de este Box sea negro
+          color="black" 
         >
-          {/* Contenido del formulario */}
           <VStack gap={4} align="stretch" position="relative" zIndex="2">
             <Text fontSize="2em" fontWeight="bold" color="black">RESTABLECER CONTRASEÑA</Text>
 
@@ -61,8 +55,8 @@ export default function ChangePassword() {
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => setNewPassword(e.target.value)}
                 borderRadius="md"
                 size="lg"
-                color="blue.600 !important" // Texto del Input azul
-                _placeholder={{ color: "gray.500 !important" }} // Placeholder visible
+                color="blue.600 !important"
+                _placeholder={{ color: "gray.500 !important" }}
               />
             </Box>
 
@@ -70,13 +64,13 @@ export default function ChangePassword() {
               <label htmlFor="verificationCode" style={{ fontSize: '1.2em', fontWeight: 'bold', marginBottom: '4px', color: 'black', display: 'block' }}>Código de Verificación</label>
               <Input
                 placeholder=""
-                type="text" // Tipo de texto para el código de verificación
+                type="text"
                 value={verificationCode}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => setVerificationCode(e.target.value)}
                 borderRadius="md"
                 size="lg"
-                color="blue.600 !important" // Texto del Input azul
-                _placeholder={{ color: "gray.500 !important" }} // Placeholder visible
+                color="blue.600 !important"
+                _placeholder={{ color: "gray.500 !important" }}
               />
             </Box>
 
