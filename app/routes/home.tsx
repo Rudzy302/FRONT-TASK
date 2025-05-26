@@ -26,8 +26,8 @@ export default function Home() {
               variant="ghost"
               color="black"
               fontSize="2xl"
-              px={8}
-              py={4}
+              px={12}
+              py={6}
               _hover={{ backgroundColor: '#E9E9E9' }}
             >
               Registrarse
@@ -49,6 +49,7 @@ export default function Home() {
           </Link>
         </Flex>
       </Flex>
+      <br/>
 
       {/* Contenido principal: Este Flex.Box ahora ocupa todo el espacio restante y se extiende */}
       <Flex
@@ -146,8 +147,8 @@ export default function Home() {
           </Box>
         </Grid>
       </Box>
-
-      <Box bg="#E9E9E9" py={8} borderRadius="md">
+      <br/>
+      <Box bg="#E9E9E9" py={1} borderRadius="md">
         <VStack as="section" textAlign="center" mt={0} gap={16} maxWidth="container.md" mx="auto" px={4}>
           <Heading as="h2" size="2xl" color="blue.600">¿Cómo Funciona?</Heading>
           <Flex justifyContent="space-around" alignItems="center" w="full">
@@ -247,7 +248,7 @@ export default function Home() {
 
             <Flex direction="row" justifyContent="space-around" flex="1">
               <Box textAlign="center">
-                <VStack align="center" gap={2}>
+                <VStack align="center" gap={1}>
                   <Link to="/inicio" color="white">
                     Inicio
                   </Link>
@@ -258,7 +259,7 @@ export default function Home() {
               </Box>
 
               <Box textAlign="center">
-                <VStack align="center" gap={2}>
+                <VStack align="center" gap={1}>
                   <Link to="/caracteristicas" color="white">
                     Características
                   </Link>
