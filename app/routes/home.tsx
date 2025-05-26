@@ -1,82 +1,83 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { Box, Heading, Text, Button, Flex, VStack, Spacer, Image, Grid } from '@chakra-ui/react';
+import { Box, Flex, Heading, Spacer, Button, Text, Image, Grid, VStack } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
+import type { Route } from "../routes/+types/home";
+// import { title } from "process"; // Esta importación no es necesaria para el frontend y puede causar problemas
+import taskLogo3D from "../routes/src/assets/TASK.jpg";
 
-// Importa la imagen con la ruta correcta
-import taskLogo3D from './src/assets/TASK.jpg'; // Asegúrate de que la ruta sea correcta
-
-export type Route = {};
-
-export function meta({}: Route) {
-  return [
-    { title: "TASK" },
-    { name: "description", content: "Bienvenido a TASK tu app web de registro de notas" },
+export function meta({}: Route.MetaArgs){
+  return[
+    {title: "HOME TASK"},
+    {name: "description", content: "Bienbenidos a TASK tu app web que te ayudara a llevar bien tus tareas."},
   ];
 }
 
 export default function Home() {
   return (
-    <Box minH="100vh" bg="gray.50">
+    // Contenedor principal: Flex en columna que ocupa al menos el 100% del alto de la ventana
+    <Box minH="100vh" display="flex" flexDirection="column" bg="gray.50">
       <Flex as="header" w="full" px={8} py={4} align="center" bg="white" boxShadow="0 4px 6px rgba(0, 0, 0, 0.2)">
         <Heading as="h1" size="4xl" color="blue.600">
           Task
         </Heading>
         <Spacer />
         <Flex align="center" gap={6}>
-          <Button
-            as={Link}
-            to="/login" // Navega a /login
-            variant="ghost"
-            color="black"
-            fontSize="2xl"
-            px={8}
-            py={4}
-            _hover={{ backgroundColor: '#E9E9E9' }}
-          >
-            Iniciar Sesión
-          </Button>
-          <Button
-            as={Link}
-            to="/register"  // Navega a /register
-            bg="blue.600"
-            color="white"
-            variant="solid"
-            borderRadius="md"
-            px={12}
-            py={6}
-            fontSize="2xl"
-            _hover={{ backgroundColor: 'blue.700' }}
-          >
-            Registrarse
-          </Button>
+          <Link to="/register">
+            <Button
+              variant="ghost"
+              color="black"
+              fontSize="2xl"
+              px={8}
+              py={4}
+              _hover={{ backgroundColor: '#E9E9E9' }}
+            >
+              Registrarse
+            </Button>
+          </Link>
+          <Link to="/login">
+            <Button
+              bg="blue.600"
+              color="white"
+              variant="solid"
+              borderRadius="md"
+              px={12}
+              py={6}
+              fontSize="2xl"
+              _hover={{ backgroundColor: 'blue.700' }}
+            >
+              Iniciar Sesión
+            </Button>
+          </Link>
         </Flex>
       </Flex>
 
+      {/* Contenido principal: Este Flex.Box ahora ocupa todo el espacio restante y se extiende */}
       <Flex
         as="main"
         py={8}
-        px={4}
+        px={{ base: 4, md: 16 }} // Mantenemos el padding horizontal para pantallas más grandes
         align="center"
         bg="#E5E4FF"
         direction={{ base: 'column', md: 'row' }}
-        justifyContent="space-around"
-        maxWidth="container.xl"
-        mx="auto"
+        justifyContent="space-between" // Distribuye mejor los elementos
+        w="full" // Asegura que el fondo ocupe todo el ancho
+        // mx="auto" // Eliminado, ya que w="full" no lo necesita
         gap={8}
+        flexGrow={1} // Esto hace que el contenido principal se expanda y empuje el footer
       >
-        <Box textAlign={{ base: 'center', md: 'left' }} maxW="xl">
+        <Box textAlign={{ base: 'center', md: 'left' }} maxW={{ base: "full", md: "2xl", lg: "4xl" }}> {/* Aumentado el maxW para el texto */}
           <Heading as="h1" size="4xl" color="#001728" mb={4}>
             Gestiona tus tareas de manera eficiente
           </Heading>
           <Text fontSize="xl" color="gray.700" mb={6}>
-            TaskMaster te ayuda a organizar proyectos, establecer prioridades y cumplir tus objetivos.
+            TaskMaster te ayuda a organizar proyectos,<br></br> establecer prioridades y cumplir tus objetivos.
           </Text>
+          
         </Box>
         <Box
           borderRadius="15px"
           overflow="hidden"
           boxShadow="md"
-          maxWidth="2xl"
+          maxW={{ base: "full", md: "xl", lg: "3xl" }} // Aumentado el maxW para la imagen
         >
           <Image src={taskLogo3D} alt="Logo TASK 3D" width="100%" />
         </Box>
@@ -121,8 +122,7 @@ export default function Home() {
               Proyectos Personalizados
             </Heading>
             <Text fontSize="md" color="gray.600">
-              Agrupa tus tareas en proyectos.
-              {"\n"}
+              Agrupa tus tareas en proyectos.<br />
               Visualiza el progreso y mantén todo organizado.
             </Text>
           </Box>
@@ -140,7 +140,7 @@ export default function Home() {
               Seguimiento de Progreso
             </Heading>
             <Text fontSize="md" color="gray.600">
-              Visualiza tu productividad con gráficos y estadísticas.{'\n'}
+              Visualiza tu productividad con gráficos y estadísticas.<br />
               Identifica áreas de mejora.
             </Text>
           </Box>
@@ -221,7 +221,7 @@ export default function Home() {
         </VStack>
       </Box>
 
-      <Box as="footer" bg="#001728" color="white" py={1} px={1}>
+      <Box as="footer" bg="#001728" color="white" py={1} px={1} mt="auto"> {/* mt="auto" empuja el footer hacia abajo */}
         <Flex direction="column" maxWidth="container.xl" mx="auto">
           <Flex justifyContent="space-between" mb={4}>
             <Box textAlign="center" flex="1">
@@ -274,4 +274,3 @@ export default function Home() {
     </Box>
   );
 }
-
