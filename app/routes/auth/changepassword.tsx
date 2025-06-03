@@ -10,11 +10,20 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { Link as RouterLink } from "react-router-dom";
-import React from "react";
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function ChangePassword() {
-  const [newPassword, setNewPassword] = React.useState('');
-  const [verificationCode, setVerificationCode] = React.useState('');
+  const [newPassword, setNewPassword] = React.useState("");
+  const [verificationCode, setVerificationCode] = React.useState("");
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const isAuthenticated = localStorage.getItem("authToken");
+    if (!isAuthenticated) {
+      navigate("/dashboard", { replace: true });
+    }
+  }, [navigate]);
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
@@ -22,16 +31,38 @@ export default function ChangePassword() {
   };
 
   return (
-    <Box display="flex" flexDirection="column" w="full" minH="100vh" bg="gray.50">
-
-      <Flex as="header" w="full" px={8} py={4} align="center" bg="white" boxShadow="sm">
-        <Heading as="h1" size="4xl" color="blue.600">
+    <Box
+      display="flex"
+      flexDirection="column"
+      w="full"
+      minH="100vh"
+      bg="gray.50"
+    >
+      <Flex
+        as="header"
+        w="full"
+        px={8}
+        py={4}
+        align="center"
+        bg="white"
+        boxShadow="sm"
+      >
+        <Heading
+          as="h1"
+          size="4xl"
+          color="blue.600"
+        >
           Task
         </Heading>
         <Spacer />
       </Flex>
 
-      <HStack justify="center" align="center" flexGrow={1} w="full">
+      <HStack
+        justify="center"
+        align="center"
+        flexGrow={1}
+        w="full"
+      >
         <Box
           p={8}
           maxW={{ base: "xs", sm: "sm", md: "md" }}
@@ -41,18 +72,42 @@ export default function ChangePassword() {
           boxShadow="lg"
           bg="white"
           textAlign="center"
-          color="black" 
+          color="black"
         >
-          <VStack gap={4} align="stretch" position="relative" zIndex="2">
-            <Text fontSize="2em" fontWeight="bold" color="black">RESTABLECER CONTRASEÑA</Text>
+          <VStack
+            gap={4}
+            align="stretch"
+            position="relative"
+            zIndex="2"
+          >
+            <Text
+              fontSize="2em"
+              fontWeight="bold"
+              color="black"
+            >
+              RESTABLECER CONTRASEÑA
+            </Text>
 
             <Box textAlign="left">
-              <label htmlFor="newPassword" style={{ fontSize: '1.2em', fontWeight: 'bold', marginBottom: '4px', color: 'black', display: 'block' }}>Nueva Contraseña</label>
+              <label
+                htmlFor="newPassword"
+                style={{
+                  fontSize: "1.2em",
+                  fontWeight: "bold",
+                  marginBottom: "4px",
+                  color: "black",
+                  display: "block",
+                }}
+              >
+                Nueva Contraseña
+              </label>
               <Input
                 placeholder=""
                 type="password"
                 value={newPassword}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setNewPassword(e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setNewPassword(e.target.value)
+                }
                 borderRadius="md"
                 size="lg"
                 color="blue.600 !important"
@@ -61,12 +116,25 @@ export default function ChangePassword() {
             </Box>
 
             <Box textAlign="left">
-              <label htmlFor="verificationCode" style={{ fontSize: '1.2em', fontWeight: 'bold', marginBottom: '4px', color: 'black', display: 'block' }}>Código de Verificación</label>
+              <label
+                htmlFor="verificationCode"
+                style={{
+                  fontSize: "1.2em",
+                  fontWeight: "bold",
+                  marginBottom: "4px",
+                  color: "black",
+                  display: "block",
+                }}
+              >
+                Código de Verificación
+              </label>
               <Input
                 placeholder=""
                 type="text"
                 value={verificationCode}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setVerificationCode(e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setVerificationCode(e.target.value)
+                }
                 borderRadius="md"
                 size="lg"
                 color="blue.600 !important"
@@ -87,9 +155,21 @@ export default function ChangePassword() {
               RESTABLECER
             </Button>
 
-            <Text fontSize="md" mt={4} mb={0} color="black">
+            <Text
+              fontSize="md"
+              mt={4}
+              mb={0}
+              color="black"
+            >
               <RouterLink to="/login">
-                <Text as="span" color="blue.500" fontWeight="semibold" _hover={{ textDecoration: 'underline' }}>Recorde mi contraseña</Text>
+                <Text
+                  as="span"
+                  color="blue.500"
+                  fontWeight="semibold"
+                  _hover={{ textDecoration: "underline" }}
+                >
+                  Recorde mi contraseña
+                </Text>
               </RouterLink>
             </Text>
           </VStack>

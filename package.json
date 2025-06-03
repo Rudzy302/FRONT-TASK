@@ -9,6 +9,7 @@
     "typecheck": "react-router typegen && tsc"
   },
   "dependencies": {
+    "@apollo/client": "^3.13.8",
     "@chakra-ui/react": "^3.19.1",
     "@emotion/react": "^11.14.0",
     "@react-router/node": "^7.5.3",
