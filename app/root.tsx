@@ -8,10 +8,12 @@ import {
 } from "react-router";
 import { ApolloProvider } from "@apollo/client";
 import client from "./lib/apollo"; // Importa tu cliente Apollo
+import { AuthProvider } from "./context/AuthContext";
+import { Provider } from "./components/ui/provider";
+import { TasksProvider } from "./routes/src/dashboard/components/task/TasksContext";
 
 import type { Route } from "./+types/root";
 import "./app.css";
-import { Provider } from "./components/ui/provider";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -49,11 +51,15 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 export default function App() {
   return (
-    <ApolloProvider client={client}>
-      <Provider>
-        <Outlet />
-      </Provider>
-    </ApolloProvider>
+    <Provider>
+      <ApolloProvider client={client}>
+        <AuthProvider>
+          <TasksProvider>
+            <Outlet />
+          </TasksProvider>
+        </AuthProvider>
+      </ApolloProvider>
+    </Provider>
   );
 }
 

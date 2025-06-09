@@ -11,9 +11,10 @@ import {
   Grid,
 } from "@chakra-ui/react";
 import { Link as RouterLink } from "react-router-dom";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { registerUser, loginUser } from "../../services/auth"; // Importa las funciones de registro y login
+import { registerUser } from "../../services/auth";
+import { useAuth } from "../../context/AuthContext";
 
 export default function Register() {
   const [username, setUsername] = React.useState("");
@@ -22,9 +23,10 @@ export default function Register() {
   const [confirmPassword, setConfirmPassword] = React.useState("");
   const [acceptTerms, setAcceptTerms] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
-  const [error, setError] = React.useState<string | null>(null);
-  const [success, setSuccess] = React.useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   useEffect(() => {
     const isAuthenticated = localStorage.getItem("authToken");
@@ -33,40 +35,35 @@ export default function Register() {
     }
   }, [navigate]);
 
-  const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault();
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError('');
+    setSuccess('');
     setLoading(true);
-    setError(null);
 
     if (password !== confirmPassword) {
-      setError("Las contraseñas no coinciden.");
+      setError('Las contraseñas no coinciden');
       setLoading(false);
       return;
     }
+
     if (!acceptTerms) {
-      setError("Debes aceptar los términos y condiciones.");
+      setError('Debes aceptar los términos y condiciones');
       setLoading(false);
       return;
     }
 
     try {
       await registerUser(username, email, password);
-      setSuccess("Registro exitoso. Iniciando sesión automáticamente...");
+      setSuccess('¡Registro exitoso! Redirigiendo...');
+      
+      // Esperar 2 segundos antes de redirigir para que el usuario vea el mensaje de éxito
+      setTimeout(() => {
+        navigate('/dashboard');
+      }, 2000);
 
-      const loginData = await loginUser(username, password);
-      if (loginData.accessToken) {
-        localStorage.setItem("authToken", loginData.accessToken);
-        setTimeout(() => {
-          setSuccess(null);
-        }, 5000);
-        navigate("/dashboard");
-      } else {
-        throw new Error(
-          "Token de autenticación no encontrado después del registro."
-        );
-      }
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Error al registrar usuario');
     } finally {
       setLoading(false);
     }
@@ -129,6 +126,35 @@ export default function Register() {
             >
               CREAR CUENTA
             </Text>
+
+            {error && (
+              <Box
+                p={4}
+                bg="red.50"
+                color="red.500"
+                borderRadius="md"
+                borderWidth={1}
+                borderColor="red.200"
+                mb={2}
+              >
+                <Text fontWeight="bold">Error</Text>
+                <Text>{error}</Text>
+              </Box>
+            )}
+
+            {success && (
+              <Box
+                p={4}
+                bg="green.50"
+                color="green.500"
+                borderRadius="md"
+                borderWidth={1}
+                borderColor="green.200"
+              >
+                <Text fontWeight="bold">Éxito</Text>
+                <Text>{success}</Text>
+              </Box>
+            )}
 
             <Box textAlign="left">
               <label
@@ -209,14 +235,6 @@ export default function Register() {
                 color="blue.600 !important"
                 _placeholder={{ color: "gray.500 !important" }}
               />
-              <Text
-                fontSize="0.8em"
-                color="gray.600"
-                mt={1}
-              >
-                La contraseña debe tener al menos 8 caracteres y contener
-                letras, números y símbolos.
-              </Text>
             </Box>
 
             <Box textAlign="left">
@@ -246,69 +264,52 @@ export default function Register() {
               />
             </Box>
 
-            <Flex
-              justifyContent="flex-start"
-              alignItems="center"
-              mt={2}
-              mb={4}
-            >
-              <input
-                type="checkbox"
-                id="acceptTerms"
-                checked={acceptTerms}
-                onChange={(e) => setAcceptTerms(e.target.checked)}
-                style={{
-                  marginRight: "8px",
-                  width: "16px",
-                  height: "16px",
-                  accentColor: "blue",
-                }}
-              />
+            <Box textAlign="left">
               <label
-                htmlFor="acceptTerms"
-                style={{ fontSize: "1rem", color: "black" }}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "8px",
+                  cursor: "pointer",
+                }}
               >
-                Acepto los Términos de servicio y la política de privacidad
+                <input
+                  type="checkbox"
+                  checked={acceptTerms}
+                  onChange={(e) => setAcceptTerms(e.target.checked)}
+                  style={{ width: "20px", height: "20px" }}
+                />
+                <Text>
+                  Acepto los{" "}
+                  <RouterLink
+                    to="/terms"
+                    style={{ color: "blue", textDecoration: "underline" }}
+                  >
+                    términos y condiciones
+                  </RouterLink>
+                </Text>
               </label>
-            </Flex>
+            </Box>
 
             <Button
-              bg="blue.600"
-              color="white"
+              type="submit"
+              colorScheme="blue"
               size="lg"
-              w="full"
-              mt={4}
+              width="full"
               onClick={handleSubmit}
-              _hover={{ bg: "blue.700" }}
-              borderRadius="md"
-              disabled={loading}
+              loading={loading}
+              loadingText="Registrando..."
             >
               {loading ? "Registrando..." : "Registrarse"}
             </Button>
-            {error && (
-              <Text
-                color="red.500"
-                mt={2}
-              >
-                Error: {error}
-              </Text>
-            )}
 
-            <Text
-              fontSize="md"
-              mt={4}
-              mb={0}
-              color="black"
-            >
-              <RouterLink to="/login">
-                <Text
-                  as="span"
-                  color="blue.500"
-                  fontWeight="semibold"
-                  _hover={{ textDecoration: "underline" }}
-                >
-                  Ya tengo una cuenta
-                </Text>
+            <Text>
+              ¿Ya tienes una cuenta?{" "}
+              <RouterLink
+                to="/login"
+                style={{ color: "blue", textDecoration: "underline" }}
+              >
+                Iniciar sesión
               </RouterLink>
             </Text>
           </VStack>

@@ -61,7 +61,7 @@ export default function Home() {
           gap={6}
         >
           {isAuthenticated ? (
-            <Link to="/dashboard">
+            <Link to="/welcome">
               <Button
                 bg="blue.600"
                 color="white"

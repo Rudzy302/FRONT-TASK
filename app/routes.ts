@@ -11,4 +11,6 @@ export default [
   route("/projects", "./routes/src/dashboard/projects.tsx"),
   route("/calendar", "./routes/src/dashboard/calendar.tsx"),
   route("/userConfig", "./routes/src/dashboard/userConfig.tsx"),
+  route("/projects/:projectName", "./routes/src/dashboard/components/project/deleteProject.tsx"),
+  route("/tasks/:nombre", "./routes/src/dashboard/components/task/TaskDetail.tsx"),
 ] satisfies RouteConfig;

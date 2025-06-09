@@ -11,4 +11,21 @@ export default defineConfig({
   ssr: {
     noExternal: ["@apollo/client"],
   },
+  server: {
+    port: 3000,
+    proxy: {
+      '/api/auth': {
+        target: 'http://localhost:8080',
+        changeOrigin: true,
+        secure: false,
+        rewrite: (path) => path.replace(/^\/api\/auth/, '/api/v1/auth')
+      },
+      '/api/tasks': {
+        target: 'http://localhost:4000',
+        changeOrigin: true,
+        secure: false,
+        rewrite: (path) => path.replace(/^\/api\/tasks/, '/graphql')
+      }
+    }
+  }
 });

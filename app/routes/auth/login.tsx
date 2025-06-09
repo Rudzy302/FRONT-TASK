@@ -8,7 +8,6 @@ import {
   Input,
   Text,
   Button,
-  Grid,
 } from "@chakra-ui/react";
 import { Link as RouterLink } from "react-router-dom";
 import React, { useEffect } from "react";
@@ -26,7 +25,7 @@ export default function Login() {
   useEffect(() => {
     const isAuthenticated = localStorage.getItem("authToken");
     if (isAuthenticated) {
-      navigate("/dashboard", { replace: true });
+      navigate("/welcome", { replace: true });
     }
   }, [navigate]);
 
@@ -40,7 +39,7 @@ export default function Login() {
 
       if (data.accessToken) {
         localStorage.setItem("authToken", data.accessToken);
-        navigate("/dashboard");
+        navigate("/welcome");
       } else {
         throw new Error(
           "Token de autenticación no encontrado en la respuesta."
