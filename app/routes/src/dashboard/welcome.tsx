@@ -11,10 +11,9 @@ import DashboardContent from "./components/DashboardContent";
 import NavModal from "./components/NavModal";
 
 export default function Welcome() {
- 
   return (
     <Flex>
-      <NavModal/>
+      <NavModal />
       <Box
         flex="1"
         p={8}

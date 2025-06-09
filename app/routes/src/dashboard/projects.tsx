@@ -38,12 +38,15 @@ export default function ProjectsPage() {
 
   const handleAgregarProyecto = (nuevoProyecto: Proyecto) => {
     proyectos.push(nuevoProyecto);
-    forceUpdate(n => n + 1);
+    forceUpdate((n) => n + 1);
   };
 
   return (
-    <Flex w="full" h="full">
-      <NavModal/>
+    <Flex
+      w="full"
+      h="full"
+    >
+      <NavModal />
 
       <Box
         flex="1"
@@ -66,7 +69,11 @@ export default function ProjectsPage() {
           </Heading>
         </Flex>
         <Box mt={8}>
-          <ProjectsContent onAgregarProyecto={handleAgregarProyecto} modalOpen={modalOpen} setModalOpen={setModalOpen} />
+          <ProjectsContent
+            onAgregarProyecto={handleAgregarProyecto}
+            modalOpen={modalOpen}
+            setModalOpen={setModalOpen}
+          />
           <ProjectComponent proyectos={proyectos} />
         </Box>
       </Box>

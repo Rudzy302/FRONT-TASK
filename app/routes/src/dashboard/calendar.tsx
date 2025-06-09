@@ -14,11 +14,9 @@ import CalendarContent from "./content/CalendarContent";
 import NavModal from "./components/NavModal";
 
 export default function CalendarPage() {
- 
-
   return (
-    <Flex >
-      <NavModal/>
+    <Flex>
+      <NavModal />
 
       <Box
         flex="1"

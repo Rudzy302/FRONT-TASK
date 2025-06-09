@@ -32,8 +32,8 @@ export default function TaskPage() {
   const isActive = (path: string) => location.pathname === path;
 
   return (
-     <Flex>
-      <NavModal/>
+    <Flex>
+      <NavModal />
       <Box
         flex="1"
         p={8}
@@ -49,7 +49,6 @@ export default function TaskPage() {
             size="2xl"
             color="black"
           >
-
             Mis Tareas
           </Heading>
         </Flex>
